@@ -118,13 +118,13 @@ These links ensure NotebookLM can read both the rendered Markdown and the raw HT
 #### Rendered Markdown (GitHub HTML view)
 
 - README.md  
-  <https://github.com/zackunseasoned/bb-master-template/blob/main/README.md> 
+  <https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/README.md> 
 - changelog.md  
-  <https://github.com/zackunseasoned/bb-master-template/blob/main/changelog.md>
+  <https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/changelog.md>
 - governance.md  
-  <https://github.com/zackunseasoned/bb-master-template/blob/main/governance.md>
+  <https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/governance.md>
 - structure.md  
-  <https://github.com/zackunseasoned/bb-master-template/blob/main/structure.md>
+  <https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/structure.md>
 
 #### Raw HTML (critical for NotebookLM)
 
