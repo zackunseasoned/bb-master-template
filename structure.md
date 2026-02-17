@@ -1,4 +1,5 @@
 # Structure — BB Project Master Template  
+
 **Author:** Zack AhSam‑Kreiter  
 
 This document defines the authoritative structural map of `master-template.html`.  
@@ -10,6 +11,7 @@ Any modification requires a MAJOR version bump and must be documented in `change
 ---
 
 # 1. Document Metadata Block  
+
 The file begins with a top‑level HTML comment containing:
 
 - Project name  
@@ -25,6 +27,7 @@ This metadata block is a semantic anchor and must remain intact.
 ---
 
 # 2. Document Root  
+
 The document root consists of:
 
 - `<!DOCTYPE html>`  
@@ -37,34 +40,41 @@ These elements define the global document structure.
 ---
 
 # 3. Global Styles (Inline CSS)  
+
 All CSS is embedded within `<style>` inside `<head>`.
 
 ### 3.1 Layout & Typography  
+
 - Body styling (font, width, background, padding)  
 - Header alignment (`.center`)  
 - Section styling (`section`, `.sec-header`, `.sec-content`)  
 
 ### 3.2 Navigation  
+
 - `.nav-panel`  
 - `.nav-btn`  
 - `.nav-top-link`  
 
 ### 3.3 Tables  
+
 - Unified table styling (`table`, `thead`, `th`, `td`)  
 - Sticky headers  
 - Alternating row backgrounds  
 - `.table-container` scroll behavior  
 
 ### 3.4 Sorting  
+
 - `.sortable`  
 - `.sort-indicator`  
 
 ### 3.5 Expandable Notes / Messages  
+
 - `.note-text-container`  
 - `.note-row.expanded`  
 - `.msg-body`  
 
 ### 3.6 Print/PDF Optimizations  
+
 - Hide navigation and controls  
 - Remove shadows  
 - Disable sticky headers  
@@ -74,6 +84,7 @@ All CSS must remain inline and unminified.
 ---
 
 # 4. Header Section  
+
 Located at the top of `<body>`.
 
 Contains:
@@ -87,6 +98,7 @@ Contains:
 ---
 
 # 5. Navigation Panel  
+
 A list of `.nav-btn` elements that call `openAndScroll()`.
 
 Canonical navigation order:
@@ -111,6 +123,7 @@ This ordering defines the authoritative section sequence.
 ---
 
 # 6. Global Controls  
+
 A `.global-controls` block containing:
 
 - Expand All  
@@ -142,64 +155,78 @@ These elements are schema‑locked.
 Below is the exact section list, in order, with IDs and table IDs.
 
 ### 1. Patient Information  
+
 - Section ID: `patient-info`  
 - Table ID: `patient-info-table`  
 
 ### 2. Military Service  
+
 - Section ID: `military`  
 - Table ID: `military-table`  
 - Includes Privacy Guard notice  
 
 ### 3. Allergies  
+
 - Section ID: `allergies`  
 - Table ID: `allergy-table`  
 
 ### 4. Health Conditions  
+
 - Section ID: `problems`  
 - Table ID: `problems-table`  
 
 ### 5. Vaccines  
+
 - Section ID: `vaccines`  
 - Table ID: `vaccines-table`  
 
 ### 6. Vitals  
+
 - Section ID: `vitals`  
 - Table ID: `vitals-table`  
 
 ### 7. Medications  
+
 - Section ID: `medications`  
 - Table ID: `medications-table`  
 
 ### 8. Laboratory Results  
+
 - Section ID: `results`  
 - Table ID: `results-table`  
 
 ### 9. Past Appointments  
+
 - Section ID: `past-appts`  
 - Table ID: `past-appts-table`  
 
 ### 10. Upcoming Appointments  
+
 - Section ID: `upcoming-appointments`  
 - Table ID: `upcoming-appointments-table`  
 
 ### 11. Secure Messaging  
+
 - Section ID: `secure-messaging`  
 - Table ID: `secure-messaging-table`  
 - Includes local controls  
 - Uses `.msg-body` expandable content  
 
 ### 12. Care Summaries and Notes  
+
 - Section ID: `notes`  
 - Table ID: `notes-table`  
 - Includes local controls  
 - Uses `.note-body` expandable content  
 
 ### 13. Social History  
+
 - Section ID: `social-history`  
 - Table ID: `social-history-table`  
 - Key/value table pattern  
 
 ### 14. Account Summary  
+
 - Section ID: `account-summary`  
 - Table ID: `account-summary-table`  
 - Key/value table pattern  
@@ -209,22 +236,28 @@ Below is the exact section list, in order, with IDs and table IDs.
 # 9. Table Patterns
 
 ### 9.1 Sortable Multi‑Column Tables  
+
 Used in most sections.  
 Sortable via `sortTable()`.
 
 ### 9.2 Key/Value Two‑Column Tables  
+
 Used in:  
+
 - Social History  
 - Account Summary  
 
 ### 9.3 Expandable Content Tables  
+
 Used in:  
+
 - Secure Messaging (`.msg-body`)  
 - Notes (`.note-body`)  
 
 ---
 
 # 10. Export Layer Structure  
+
 Every section includes an `.export-controls` block with:
 
 - `exportTableToCSV(tableId, filename)`  
@@ -237,25 +270,30 @@ Filenames are year‑scoped (e.g., `*_2013.csv`).
 # 11. Behavioral Logic (Inline JS)
 
 ### 11.1 Accordion Controls  
+
 - toggleAccordion  
 - expandAll  
 - collapseAll  
 
 ### 11.2 Navigation  
+
 - openAndScroll  
 - highlightNav  
 - closeAllSections  
 
 ### 11.3 Expandable Content  
+
 - expandNotes / collapseNotes  
 - expandMessages / collapseMessages  
 - toggleNoteText  
 
 ### 11.4 Sorting  
+
 - sortTable  
 - Supports numeric, text, and data-sort sorting  
 
 ### 11.5 Export  
+
 - exportTableToCSV  
 - exportTableToJSON  
 
@@ -276,6 +314,7 @@ These comments are semantic anchors used by NotebookLM, MSCP, and comparison eng
 ---
 
 # 13. Provenance & Privacy Notes  
+
 - Privacy Guard notice in Military Service section  
 - Year‑scoped export filenames  
 - No external dependencies  
@@ -286,17 +325,21 @@ These comments are semantic anchors used by NotebookLM, MSCP, and comparison eng
 # 14. Future Structural Extensions (Scaffold)
 
 ### 14.1 Additional Clinical Sections  
+
 Placeholder for future VA Blue Button categories.
 
 ### 14.2 Comparison Metadata Blocks  
+
 Placeholder for multi‑year diff metadata.
 
 ### 14.3 Export Layer Mapping  
+
 Placeholder for CSV/JSON schema mapping.
 
 ---
 
 # 15. Authority of This Document  
+
 `structure.md` is the authoritative structural reference for the BB Project master template.  
 Any structural change must be:
 
