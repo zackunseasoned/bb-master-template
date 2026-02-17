@@ -1,12 +1,19 @@
 # Structure — BB Project Master Template  
-
 **Author:** Zack AhSam‑Kreiter  
 
 This document defines the authoritative structural map of `master-template.html`.  
 It reflects the exact ordering, identifiers, semantic anchors, table schemas, behavioral logic, and UI patterns present in the canonical single‑file HTML template used for VA Blue Button reconstruction and multi‑year comparison.
 
-All structures listed here are schema‑locked.  
-Any modification requires a MAJOR version bump and must be documented in `changelog.md`.
+All structures listed here are **schema‑locked**.  
+Any modification requires a **MAJOR** version bump and must be documented in `changelog.md`.
+
+This file is a **source‑of‑truth reference** for:
+
+- reconstruction engines  
+- NotebookLM ingestion  
+- comparison engines  
+- export layers  
+- audit workflows  
 
 ---
 
@@ -16,13 +23,14 @@ The file begins with a top‑level HTML comment containing:
 
 - Project name  
 - Template purpose  
-- Version (1.0.0)  
+- Version (semantic versioning)  
 - Status (Authoritative Source of Truth)  
 - Repository URL  
 - Last Updated date  
 - Editing rules (dev‑only edits, PR workflow, schema‑lock rules, no external dependencies)
 
-This metadata block is a semantic anchor and must remain intact.
+This metadata block is a **semantic anchor** and must remain intact.  
+NotebookLM must ingest this block **line‑by‑line**.
 
 ---
 
@@ -35,46 +43,41 @@ The document root consists of:
 - `<head>`  
 - `<body>`
 
-These elements define the global document structure.
+These elements define the global document structure and must not be altered.
 
 ---
 
 # 3. Global Styles (Inline CSS)  
 
-All CSS is embedded within `<style>` inside `<head>`.
+All CSS is embedded within `<style>` inside `<head>`.  
+No external CSS is permitted.
 
 ### 3.1 Layout & Typography  
-
-- Body styling (font, width, background, padding)  
+- Body styling  
 - Header alignment (`.center`)  
 - Section styling (`section`, `.sec-header`, `.sec-content`)  
 
 ### 3.2 Navigation  
-
 - `.nav-panel`  
 - `.nav-btn`  
 - `.nav-top-link`  
 
 ### 3.3 Tables  
-
-- Unified table styling (`table`, `thead`, `th`, `td`)  
+- Unified table styling  
 - Sticky headers  
 - Alternating row backgrounds  
 - `.table-container` scroll behavior  
 
 ### 3.4 Sorting  
-
 - `.sortable`  
 - `.sort-indicator`  
 
 ### 3.5 Expandable Notes / Messages  
-
-- `.note-text-container`  
-- `.note-row.expanded`  
+- `.note-body`  
 - `.msg-body`  
+- `.toggle-btn`  
 
 ### 3.6 Print/PDF Optimizations  
-
 - Hide navigation and controls  
 - Remove shadows  
 - Disable sticky headers  
@@ -95,13 +98,15 @@ Contains:
 - `.patient-bar` patient identity summary  
 - `id="top"` navigation anchor  
 
+This header is schema‑locked.
+
 ---
 
 # 5. Navigation Panel  
 
 A list of `.nav-btn` elements that call `openAndScroll()`.
 
-Canonical navigation order:
+Canonical navigation order (schema‑locked):
 
 1. patient-info  
 2. military  
@@ -118,7 +123,7 @@ Canonical navigation order:
 13. social-history  
 14. account-summary  
 
-This ordering defines the authoritative section sequence.
+NotebookLM must treat this ordering as **authoritative**.
 
 ---
 
@@ -129,24 +134,38 @@ A `.global-controls` block containing:
 - Expand All  
 - Collapse All  
 
-Controls all accordion sections simultaneously.
+These control **only section‑level** expansion, not internal message/note bodies.
 
 ---
 
 # 7. Section Structure (Schema‑Locked Pattern)
 
-Every section follows this structure:
+Every section follows this exact structure:
 
-- A semantic comment: `<!-- X. Section Name -->`  
-- `<section id="SECTION-ID">`  
-- `.sec-header` with title and expand indicator  
-- `.sec-content` containing:  
-  - `.table-container`  
-  - `<table id="TABLE-ID">`  
-  - `.export-controls`  
-  - `.nav-top-link`  
+```
+<!-- X. Section Name -->
+<section id="SECTION-ID">
+    <div class="sec-header" onclick="toggleAccordion('SECTION-ID')">
+        <h3>Section Title</h3>
+        <span class="expand-indicator">+</span>
+    </div>
 
-These elements are schema‑locked.
+    <div class="sec-content">
+        <div class="table-container">
+            <table id="TABLE-ID">...</table>
+        </div>
+
+        <div class="export-controls">
+            <button>Export CSV</button>
+            <button>Export JSON</button>
+        </div>
+
+        <a href="#top" class="nav-top-link">↑ Return to Navigation</a>
+    </div>
+</section>
+```
+
+This pattern is **locked** and must not be altered.
 
 ---
 
@@ -155,78 +174,64 @@ These elements are schema‑locked.
 Below is the exact section list, in order, with IDs and table IDs.
 
 ### 1. Patient Information  
-
 - Section ID: `patient-info`  
 - Table ID: `patient-info-table`  
 
 ### 2. Military Service  
-
 - Section ID: `military`  
 - Table ID: `military-table`  
 - Includes Privacy Guard notice  
 
 ### 3. Allergies  
-
 - Section ID: `allergies`  
 - Table ID: `allergy-table`  
 
 ### 4. Health Conditions  
-
 - Section ID: `problems`  
 - Table ID: `problems-table`  
 
 ### 5. Vaccines  
-
 - Section ID: `vaccines`  
 - Table ID: `vaccines-table`  
 
 ### 6. Vitals  
-
 - Section ID: `vitals`  
 - Table ID: `vitals-table`  
 
 ### 7. Medications  
-
 - Section ID: `medications`  
 - Table ID: `medications-table`  
 
 ### 8. Laboratory Results  
-
 - Section ID: `results`  
 - Table ID: `results-table`  
 
 ### 9. Past Appointments  
-
 - Section ID: `past-appts`  
 - Table ID: `past-appts-table`  
 
 ### 10. Upcoming Appointments  
-
 - Section ID: `upcoming-appointments`  
 - Table ID: `upcoming-appointments-table`  
 
 ### 11. Secure Messaging  
-
 - Section ID: `secure-messaging`  
 - Table ID: `secure-messaging-table`  
 - Includes local controls  
 - Uses `.msg-body` expandable content  
 
 ### 12. Care Summaries and Notes  
-
 - Section ID: `notes`  
 - Table ID: `notes-table`  
 - Includes local controls  
 - Uses `.note-body` expandable content  
 
 ### 13. Social History  
-
 - Section ID: `social-history`  
 - Table ID: `social-history-table`  
 - Key/value table pattern  
 
 ### 14. Account Summary  
-
 - Section ID: `account-summary`  
 - Table ID: `account-summary-table`  
 - Key/value table pattern  
@@ -236,21 +241,16 @@ Below is the exact section list, in order, with IDs and table IDs.
 # 9. Table Patterns
 
 ### 9.1 Sortable Multi‑Column Tables  
-
 Used in most sections.  
 Sortable via `sortTable()`.
 
 ### 9.2 Key/Value Two‑Column Tables  
-
 Used in:  
-
 - Social History  
 - Account Summary  
 
 ### 9.3 Expandable Content Tables  
-
 Used in:  
-
 - Secure Messaging (`.msg-body`)  
 - Notes (`.note-body`)  
 
@@ -270,30 +270,25 @@ Filenames are year‑scoped (e.g., `*_2013.csv`).
 # 11. Behavioral Logic (Inline JS)
 
 ### 11.1 Accordion Controls  
-
 - toggleAccordion  
 - expandAll  
 - collapseAll  
 
 ### 11.2 Navigation  
-
 - openAndScroll  
 - highlightNav  
 - closeAllSections  
 
 ### 11.3 Expandable Content  
-
 - expandNotes / collapseNotes  
 - expandMessages / collapseMessages  
 - toggleNoteText  
 
 ### 11.4 Sorting  
-
 - sortTable  
 - Supports numeric, text, and data-sort sorting  
 
 ### 11.5 Export  
-
 - exportTableToCSV  
 - exportTableToJSON  
 
@@ -309,32 +304,39 @@ Each section is preceded by a numbered comment:
 - …  
 - `<!-- 14. Account Summary -->`  
 
-These comments are semantic anchors used by NotebookLM, MSCP, and comparison engines.
+These comments are **semantic anchors** used by:
+
+- NotebookLM  
+- comparison engines  
+- export layers  
+- audit workflows  
+
+They must remain intact.
 
 ---
 
-# 13. Provenance & Privacy Notes  
+# 13. NotebookLM Structural Requirements
+
+NotebookLM must:
+
+- Ingest this file **line‑by‑line**  
+- Treat all IDs, classes, and section numbers as locked  
+- Use this structure to validate reconstruction  
+- Refuse to generate output if structure is incomplete  
+- Map VA text file content to these sections exactly  
+- Perform section‑count verification before output  
+- Declare how many output chunks will be required  
+
+NotebookLM must not infer or invent structure.
+
+---
+
+# 14. Provenance & Privacy Notes  
 
 - Privacy Guard notice in Military Service section  
 - Year‑scoped export filenames  
 - No external dependencies  
 - Inline-only CSS/JS  
-
----
-
-# 14. Future Structural Extensions (Scaffold)
-
-### 14.1 Additional Clinical Sections  
-
-Placeholder for future VA Blue Button categories.
-
-### 14.2 Comparison Metadata Blocks  
-
-Placeholder for multi‑year diff metadata.
-
-### 14.3 Export Layer Mapping  
-
-Placeholder for CSV/JSON schema mapping.
 
 ---
 
