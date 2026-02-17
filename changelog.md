@@ -16,6 +16,32 @@ All changes must flow through the protected `main` branch via the `dev` → `mai
 
 ---
 
+## 1.1.0 — Documentation & Governance Expansion (2026‑02‑17)
+
+**Summary**  
+This release expands the repository’s documentation to include the full NotebookLM governance ruleset, ingestion rules, output‑planning rules, and structural alignment across all files.  
+No schema changes were made to the HTML template.
+
+**Changes**  
+- Updated `README.md` with:  
+  - NotebookLM Operating Rules  
+  - VA Text File Ingestion & Audit Rules  
+  - Output Planning & Section Count Rules  
+  - Expanded architectural overview  
+  - Updated integration instructions  
+- Added full NotebookLM governance section to `governance.md`  
+- Updated `structure.md` to align with new NBLLM requirements  
+- Added explicit semantic anchors for NBLLM across all documents  
+- Ensured all documentation uses four‑backtick fences for stability  
+- No changes to `master-template.html` (schema remains locked)
+
+**Version Impact**  
+- MINOR version bump (1.0.0 → 1.1.0)  
+- Documentation‑only update  
+- No structural or schema changes  
+
+---
+
 ## 1.0.0 — Initial Commit (2026‑02‑17)  
 
 - Added `master-template.html` as the authoritative single‑file HTML master template.  
@@ -35,52 +61,4 @@ These entries document the conceptual and structural work completed before the r
 ### 0.9.2 — Structural Refinement  
 
 - Enhanced the initial NotebookLM‑generated outline to align with BB Project schema‑locking principles.  
-- Added structural comments and section markers to support future comparison logic.
-
-### 0.9.1 — MSCP Import & Alignment  
-
-- Imported the early conceptual structure from **NotebookLM** into **MSCP** as the foundation for the authoritative template.  
-- Began aligning identifiers, section boundaries, and export‑layer considerations.
-
-### 0.9.0 — Initial Template Draft  
-
-- Created the first draft of `master-template.html`.  
-- Established schema‑locked identifiers and structural scaffolding for VA Blue Button reconstruction.
-
----
-
-# NotebookLM Ingestion Note  
-
-This repository is optimized for ingestion into **NotebookLM** to support:
-
-- semantic indexing of the HTML template  
-- cross‑referencing between schema‑locked identifiers  
-- retrieval of governance rules and workflow constraints  
-- multi‑file reasoning across Markdown and HTML  
-- longitudinal tracking of template evolution  
-
-NotebookLM should ingest:
-
-- `README.md` — project overview and governance  
-- `master-template.html` — authoritative schema‑locked structure  
-- `changelog.md` — temporal anchors for version evolution  
-- `governance.md` (when added) — ruleset and workflow constitution  
-- `structure.md` (when added) — semantic map of the HTML template  
-
-This ensures consistent, drift‑free reasoning across future enhancements.
-
----
-
-# Future Versions (Scaffold)  
-
-### 1.1.0 — Upcoming Enhancements  
-
-- _Placeholder for new sections, identifiers, or structural improvements._  
-
-### 1.0.1 — Patch Updates  
-
-- _Placeholder for documentation fixes, formatting adjustments, or minor corrections._  
-
-### 2.0.0 — Major Structural Revision (Future)  
-- _Placeholder for schema‑level changes requiring downstream updates._  
-
+- Added structural comments and section markers to support future comparison
