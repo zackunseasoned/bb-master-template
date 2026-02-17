@@ -39,22 +39,50 @@ This repository is intentionally minimal to preserve clarity and prevent schema 
 
 # 2. Files
 
+This repository contains the authoritative files required for deterministic reconstruction, schema‑locked governance, and NotebookLM ingestion.  
+All links below point to the **raw** versions for maximum stability and machine‑readability.
+
+---
+
 ### `master-template.html`  
-The complete, authoritative, single‑file HTML template.  
-This file is the **source of truth** for all reconstruction and comparison operations.
+Authoritative single‑file HTML template (schema‑locked).  
+https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/master-template.html
 
 ### `README.md`  
-Repository documentation, governance rules, NotebookLM operating rules, branching model, and versioning standards.
+Project overview, governance rules, NotebookLM operating standards.  
+https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/README.md
 
 ### `changelog.md`  
-A chronological record of all modifications to the master template.  
-Every change must be logged to maintain auditability.
+Temporal anchors for version evolution.  
+https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/changelog.md
 
 ### `governance.md`  
-Repository governance, workflow rules, and schema‑lock requirements.
+Repository governance, workflow rules, schema‑lock requirements.  
+https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/governance.md
 
 ### `structure.md`  
-Semantic map of the HTML template, including section ordering, IDs, and patterns.
+Semantic map of the HTML template.  
+https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/structure.md
+
+---
+
+# `/docs/` — Operational Documentation
+
+Supporting documents for NotebookLM, contributors, and audit workflows.
+
+### NotebookLM Pre‑Flight Checklist  
+https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/docs/notebooklm-preflight-checklist.md
+
+### NotebookLM Prompt Template  
+https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/docs/notebooklm-prompt-template.md
+
+### Contributor Guide  
+https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/docs/contributor-guide.md
+
+### master-template.html Audit Checklist  
+https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/docs/master-template-audit-checklist.md
+
+
 
 ---
 
@@ -369,18 +397,33 @@ NotebookLM must never truncate output.
 
 # 14. NotebookLM Integration (Recommended Sources)
 
-Add the following raw links to NotebookLM:
+Add the following raw links to NotebookLM for deterministic ingestion:
+
+### Core Repository Files
 
 - README.md  
-  https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/README.md  
+  https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/README.md
 - changelog.md  
-  https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/changelog.md  
+  https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/changelog.md
 - governance.md  
-  https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/governance.md  
+  https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/governance.md
 - structure.md  
-  https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/structure.md  
+  https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/structure.md
 - master-template.html (raw)  
-  https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/master-template.html  
+  https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/master-template.html
+
+### Operational Documentation (in /docs)
+
+- NotebookLM Pre‑Flight Checklist  
+  https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/docs/notebooklm-preflight-checklist.md
+- NotebookLM Prompt Template  
+  https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/docs/notebooklm-prompt-template.md
+- Contributor Guide  
+  https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/docs/contributor-guide.md
+- master-template.html Audit Checklist  
+  https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/docs/master-template-audit-checklist.md
+
+
 
 ---
 
@@ -396,3 +439,4 @@ Add the following raw links to NotebookLM:
 
 # 16. License
 This project is maintained as an authoritative internal template.
+
