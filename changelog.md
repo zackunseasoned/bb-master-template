@@ -1,9 +1,11 @@
 # Changelog — BB Project Master Template  
+
 **Author:** Zack AhSam‑Kreiter  
 
 ---
 
 # Versioning Philosophy  
+
 The BB Project uses **semantic versioning** to maintain clarity, auditability, and long‑term structural stability.
 
 - **MAJOR (X.0.0)** — Introduces structural changes to the HTML schema, comparison engine, or export logic. These versions may break backward compatibility and require downstream updates.  
@@ -15,6 +17,7 @@ All changes must flow through the protected `main` branch via the `dev` → `mai
 ---
 
 ## 1.0.0 — Initial Commit (2026‑02‑17)  
+
 - Added `master-template.html` as the authoritative single‑file HTML master template.  
 - Added `README.md` with project overview, governance rules, and branching model.  
 - Added `changelog.md` with initial version entry and versioning baseline.  
@@ -26,23 +29,28 @@ All changes must flow through the protected `main` branch via the `dev` → `mai
 ---
 
 ## 0.9.x — Pre‑Release Development (2026‑02‑16)  
+
 These entries document the conceptual and structural work completed before the repository reached version 1.0.0.
 
 ### 0.9.2 — Structural Refinement  
+
 - Enhanced the initial NotebookLM‑generated outline to align with BB Project schema‑locking principles.  
 - Added structural comments and section markers to support future comparison logic.
 
 ### 0.9.1 — MSCP Import & Alignment  
+
 - Imported the early conceptual structure from **NotebookLM** into **MSCP** as the foundation for the authoritative template.  
 - Began aligning identifiers, section boundaries, and export‑layer considerations.
 
 ### 0.9.0 — Initial Template Draft  
+
 - Created the first draft of `master-template.html`.  
 - Established schema‑locked identifiers and structural scaffolding for VA Blue Button reconstruction.
 
 ---
 
 # NotebookLM Ingestion Note  
+
 This repository is optimized for ingestion into **NotebookLM** to support:
 
 - semantic indexing of the HTML template  
@@ -66,10 +74,13 @@ This ensures consistent, drift‑free reasoning across future enhancements.
 # Future Versions (Scaffold)  
 
 ### 1.1.0 — Upcoming Enhancements  
+
 - _Placeholder for new sections, identifiers, or structural improvements._  
 
 ### 1.0.1 — Patch Updates  
+
 - _Placeholder for documentation fixes, formatting adjustments, or minor corrections._  
 
 ### 2.0.0 — Major Structural Revision (Future)  
 - _Placeholder for schema‑level changes requiring downstream updates._  
+
