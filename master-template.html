@@ -1,0 +1,1301 @@
+<!--
+  BB Project — VA Blue Button Reconstruction & Comparison Engine
+  Master Template (Single-File HTML)
+
+  Version: 1.0.0
+  Status: Authoritative Source of Truth
+  Repository: https://github.com/zackunseasoned/bb-master-template
+  Last Updated: 2026-02-16
+
+  Description:
+    This file contains the complete, schema-locked HTML master template used
+    for reconstructing VA Blue Button data, generating export layers, and
+    supporting multi-year comparison workflows. All CSS and JS are embedded
+    to ensure zero external dependencies and perfect reproducibility.
+
+  Editing Rules:
+    - Do not modify this file on the `main` branch.
+    - All edits must occur in `dev` and be merged via pull request.
+    - All changes must be documented in changelog.md.
+    - Schema-level changes require a MAJOR version bump.
+    - No external CSS, JS, or dependencies may be introduced.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Care summaries and notes 2013 - Herbert Charles Ahsam-kreiter</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 1350px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f4f7f9;
+    }
+
+    .center {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    h1 {
+        font-size: 2.2em;
+        color: #000;
+        margin: 0;
+    }
+
+    h2 {
+        font-size: 1.8em;
+        color: #000;
+        margin: 5px 0;
+    }
+
+    .period {
+        color: #004771;
+        font-weight: bold;
+        font-size: 1.1em;
+        margin-bottom: 5px;
+    }
+
+    .patient-bar {
+        font-size: 1em;
+        border-top: 2px solid #004771;
+        border-bottom: 2px solid #004771;
+        padding: 12px 0;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+        font-weight: bold;
+        background-color: #fff;
+    }
+
+    .nav-panel {
+        border: 1px solid #ccc;
+        padding: 20px;
+        background-color: #fff;
+        margin-bottom: 30px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .nav-panel strong {
+        display: block;
+        margin-bottom: 15px;
+        font-size: 1.1em;
+        border-bottom: 1px dashed #ccc;
+        padding-bottom: 5px;
+    }
+
+    .nav-btn {
+        display: inline-block;
+        padding: 10px 15px;
+        margin: 5px;
+        background: #fff;
+        border: 1px solid #004771;
+        color: #004771;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 0.9em;
+        font-weight: bold;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+
+    .nav-btn:hover {
+        background: #004771;
+        color: #fff;
+    }
+
+    /* Expand / Collapse All controls */
+    .global-controls {
+        margin: 10px 0 25px 0;
+    }
+
+    .global-controls button {
+        padding: 8px 12px;
+        margin-right: 8px;
+        border-radius: 4px;
+        border: 1px solid #004771;
+        background: #fff;
+        color: #004771;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 0.9em;
+    }
+
+    .global-controls button:hover {
+        background: #004771;
+        color: #fff;
+    }
+
+    section {
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background: #fff;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        page-break-inside: avoid;
+    }
+
+    .sec-header {
+        background-color: #f8f9fa;
+        padding: 15px 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        border-bottom: 1px solid #eee;
+    }
+
+    .sec-header h3 {
+        margin: 0;
+        font-size: 1.2em;
+        color: #004771;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .sec-content {
+        padding: 25px;
+        display: none;
+    }
+
+    .sec-content.active {
+        display: block;
+    }
+
+    .expand-indicator {
+        font-size: 1.4em;
+        font-weight: bold;
+        color: #004771;
+    }
+
+    .table-container {
+        max-height: 850px;
+        overflow-y: auto;
+        border: 1px solid #ccc;
+        margin-top: 10px;
+    }
+
+    /* Unified table styling */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: auto;
+        background-color: #fff;
+    }
+
+    thead tr {
+        background-color: #004771;
+        color: #fff;
+    }
+
+    th {
+        position: sticky;
+        top: 0;
+        background-color: #004771;
+        color: white;
+        padding: 12px;
+        text-align: left;
+        cursor: pointer;
+        z-index: 10;
+        font-size: 0.9em;
+    }
+
+    td {
+        border: 1px solid #eee;
+        padding: 12px;
+        text-align: left;
+        vertical-align: top;
+        font-size: 0.95em;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #fcfcfc;
+    }
+
+    .sortable {
+        position: relative;
+        user-select: none;
+    }
+
+    .sort-indicator {
+        font-size: 0.75em;
+        margin-left: 6px;
+        opacity: 0.7;
+    }
+
+    .sortable:hover .sort-indicator {
+        opacity: 1;
+    }
+
+    .toggle-cell {
+        cursor: pointer;
+        color: #004771;
+        font-weight: bold;
+        text-decoration: none !important;
+    }
+
+    .note-text-container {
+        display: none;
+        padding: 20px;
+        margin-top: 15px;
+        background-color: #fdfdfd;
+        border: 1px solid #004771;
+        font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        font-size: 0.95em;
+        white-space: pre-wrap;
+        color: #000;
+        text-decoration: none !important;
+    }
+
+    .note-row.expanded .note-text-container {
+        display: block;
+    }
+
+    .note-text-container * {
+        text-decoration: none !important;
+    }
+
+    .critical {
+        color: #d9534f;
+        font-weight: bold;
+        background-color: #f9d2d2 !important;
+    }
+
+    .nav-top-link {
+        font-size: 0.85em;
+        display: inline-block;
+        margin-top: 20px;
+        color: #004771;
+        text-decoration: underline;
+        font-weight: bold;
+    }
+
+    /* Print / PDF optimizations */
+    @media print {
+        body {
+            background-color: #fff;
+            max-width: 100%;
+            padding: 0.5in;
+        }
+
+        .nav-panel,
+        .global-controls,
+        .nav-top-link {
+            display: none !important;
+        }
+
+        section {
+            box-shadow: none;
+            border: 1px solid #000;
+        }
+
+        .table-container {
+            max-height: none;
+            overflow: visible;
+            border: none;
+        }
+
+        th {
+            position: static;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="center" id="top">
+    <h1>Department of Veterans Affairs</h1>
+    <h2>Care summaries and notes</h2>
+    <div class="period">Reporting Period: January 1, 20XX – December 31, 20XX</div>
+    <div class="patient-bar">Patient: First Middle Last | DOB: ##/##/####</div>
+</div>
+
+<div class="nav-panel">
+    <strong>Master Document Navigation</strong>
+
+    <a class="nav-btn" onclick="openAndScroll('patient-info', this)">Patient Information</a>
+    <a class="nav-btn" onclick="openAndScroll('military', this)">Military Service</a>
+    <a class="nav-btn" onclick="openAndScroll('allergies', this)">Allergies</a>
+    <a class="nav-btn" onclick="openAndScroll('problems', this)">Health Conditions</a>
+    <a class="nav-btn" onclick="openAndScroll('vaccines', this)">Vaccines</a>
+    <a class="nav-btn" onclick="openAndScroll('vitals', this)">Vitals</a>
+    <a class="nav-btn" onclick="openAndScroll('medications', this)">Medications</a>
+    <a class="nav-btn" onclick="openAndScroll('results', this)">Laboratory Results</a>
+    <a class="nav-btn" onclick="openAndScroll('past-appts', this)">Past Appointments</a>
+    <a class="nav-btn" onclick="openAndScroll('upcoming-appointments', this)">Upcoming Appointments</a>
+    <a class="nav-btn" onclick="openAndScroll('secure-messaging', this)">Secure Messaging</a>
+    <a class="nav-btn" onclick="openAndScroll('notes', this)">Care Summaries & Notes</a>
+    <a class="nav-btn" onclick="openAndScroll('social-history', this)">Social History</a>
+    <a class="nav-btn" onclick="openAndScroll('account-summary', this)">Account Summary</a>
+</div>
+
+<div class="global-controls">
+    <button type="button" onclick="expandAll()">Expand All</button>
+    <button type="button" onclick="collapseAll()">Collapse All</button>
+</div>
+
+<!-- 1. Patient Information -->
+<section id="patient-info">
+    <div class="sec-header" onclick="toggleAccordion('patient-info')">
+        <h3>Patient Information</h3>
+        <span class="expand-indicator">+</span>
+    </div>
+
+    <div class="sec-content">
+
+        <div class="table-container">
+            <table id="patient-info-table">
+                <tbody>
+                    <tr>
+                        <td><strong>Address (2013 Arrival)</strong></td>
+                        <td>123 Example St, City, State ZIP</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Permanent Address</strong></td>
+                        <td>456 Permanent Rd, City, State ZIP</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Primary Phone</strong></td>
+                        <td>(555) 555‑5555</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Email</strong></td>
+                        <td>example@email.com</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Occupation</strong></td>
+                        <td>Job Title / Employer</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Export Controls -->
+        <div class="export-controls">
+            <button type="button" onclick="exportTableToCSV('patient-info-table', 'patient_information_2013.csv')">
+                Export Patient Information (CSV)
+            </button>
+            <button type="button" onclick="exportTableToJSON('patient-info-table', 'patient_information_2013.json')">
+                Export Patient Information (JSON)
+            </button>
+        </div>
+
+        <a href="#top" class="nav-top-link">↑ Return to Navigation</a>
+
+    </div>
+</section>
+
+<!-- 2. Military Service -->
+<section id="military">
+    <div class="sec-header" onclick="toggleAccordion('military')">
+        <h3>Military Service</h3>
+        <span class="expand-indicator">+</span>
+    </div>
+
+    <div class="sec-content">
+
+        <div class="table-container">
+            <table id="military-table">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable(0, 'military-table')" class="sortable">
+                            Branch <span class="sort-indicator">↕</span>
+                        </th>
+                        <th onclick="sortTable(1, 'military-table')" class="sortable">
+                            Service Start Date <span class="sort-indicator">↕</span>
+                        </th>
+                        <th onclick="sortTable(2, 'military-table')" class="sortable">
+                            Service End Date <span class="sort-indicator">↕</span>
+                        </th>
+                        <th onclick="sortTable(3, 'military-table')" class="sortable">
+                            Character / Rank <span class="sort-indicator">↕</span>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Branch Name</td>
+                        <td>Service Start Date</td>
+                        <td>Service End Date</td>
+                        <td>Character / Rank</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Export Controls -->
+        <div class="export-controls">
+            <button type="button" onclick="exportTableToCSV('military-table', 'military_service_2013.csv')">
+                Export Military Service (CSV)
+            </button>
+            <button type="button" onclick="exportTableToJSON('military-table', 'military_service_2013.json')">
+                Export Military Service (JSON)
+            </button>
+        </div>
+
+        <p style="color:red; font-weight:bold; margin-top:15px;">
+            **Privacy Guard: Full SSN [REDACTED] and Service Record Number [REDACTED] per directive**
+        </p>
+
+        <a href="#top" class="nav-top-link">↑ Return to Navigation</a>
+    </div>
+</section>
+
+<!-- 3. Allergies -->
+<section id="allergies">
+    <div class="sec-header" onclick="toggleAccordion('allergies')">
+        <h3>Allergies</h3>
+        <span class="expand-indicator">+</span>
+    </div>
+
+    <div class="sec-content">
+
+        <div class="table-container">
+            <table id="allergy-table">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable(0, 'allergy-table')" class="sortable">
+                            Allergen <span class="sort-indicator">↕</span>
+                        </th>
+                        <th onclick="sortTable(1, 'allergy-table')" class="sortable">
+                            Reaction <span class="sort-indicator">↕</span>
+                        </th>
+                        <th onclick="sortTable(2, 'allergy-table')" class="sortable">
+                            Type / Origin <span class="sort-indicator">↕</span>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Drug 1</td>
+                        <td>Reaction 1</td>
+                        <td>Med 1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Export Controls -->
+        <div class="export-controls">
+            <button type="button" onclick="exportTableToCSV('allergy-table', 'allergies_2013.csv')">
+                Export Allergies (CSV)
+            </button>
+            <button type="button" onclick="exportTableToJSON('allergy-table', 'allergies_2013.json')">
+                Export Allergies (JSON)
+            </button>
+        </div>
+
+        <a href="#top" class="nav-top-link">↑ Return to Navigation</a>
+    </div>
+</section>
+
+<!-- 4. Health Conditions -->
+<section id="problems">
+    <div class="sec-header" onclick="toggleAccordion('problems')">
+        <h3>Health Conditions</h3>
+        <span class="expand-indicator">+</span>
+    </div>
+
+    <div class="sec-content">
+
+        <div class="table-container">
+            <table id="problems-table">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable(0, 'problems-table')" class="sortable">
+                            Condition <span class="sort-indicator">↕</span>
+                        </th>
+                        <th onclick="sortTable(1, 'problems-table')" class="sortable">
+                            Status Date <span class="sort-indicator">↕</span>
+                        </th>
+                        <th onclick="sortTable(2, 'problems-table')" class="sortable">
+                            Status <span class="sort-indicator">↕</span>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Diagnosis 1 (ICD-9 / ICD-10)</td>
+                        <td>Date 1</td>
+                        <td>Active</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Export Controls -->
+        <div class="export-controls">
+            <button type="button" onclick="exportTableToCSV('problems-table', 'health_conditions_2013.csv')">
+                Export Health Conditions (CSV)
+            </button>
+            <button type="button" onclick="exportTableToJSON('problems-table', 'health_conditions_2013.json')">
+                Export Health Conditions (JSON)
+            </button>
+        </div>
+
+        <a href="#top" class="nav-top-link">↑ Return to Navigation</a>
+    </div>
+</section>
+
+<!-- 5. Vaccines -->
+<section id="vaccines">
+    <div class="sec-header" onclick="toggleAccordion('vaccines')">
+        <h3>Vaccines</h3>
+        <span class="expand-indicator">+</span>
+    </div>
+
+    <div class="sec-content">
+
+        <div class="table-container">
+            <table id="vaccines-table">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable(0, 'vaccines-table')" class="sortable">
+                            Date <span class="sort-indicator">↕</span>
+                        </th>
+                        <th onclick="sortTable(1, 'vaccines-table')" class="sortable">
+                            Vaccine / Skin Test <span class="sort-indicator">↕</span>
+                        </th>
+                        <th onclick="sortTable(2, 'vaccines-table')" class="sortable">
+                            Result / Details <span class="sort-indicator">↕</span>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Date 1</td>
+                        <td>Vaccine 1</td>
+                        <td>Note 1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Export Controls -->
+        <div class="export-controls">
+            <button type="button" onclick="exportTableToCSV('vaccines-table', 'vaccines_2013.csv')">
+                Export Vaccines (CSV)
+            </button>
+            <button type="button" onclick="exportTableToJSON('vaccines-table', 'vaccines_2013.json')">
+                Export Vaccines (JSON)
+            </button>
+        </div>
+
+        <a href="#top" class="nav-top-link">↑ Return to Navigation</a>
+    </div>
+</section>
+
+<!-- 6. Vitals -->
+<section id="vitals">
+    <div class="sec-header" onclick="toggleAccordion('vitals')">
+        <h3>Vitals</h3>
+        <span class="expand-indicator">+</span>
+    </div>
+
+    <div class="sec-content">
+
+        <div class="table-container">
+            <table id="vitals-table">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable(0, 'vitals-table')" class="sortable">
+                            Date <span class="sort-indicator">↕</span>
+                        </th>
+                        <th onclick="sortTable(1, 'vitals-table')" class="sortable">
+                            Weight / BMI <span class="sort-indicator">↕</span>
+                        </th>
+                        <th onclick="sortTable(2, 'vitals-table')" class="sortable">
+                            BP / Pulse <span class="sort-indicator">↕</span>
+                        </th>
+                        <th onclick="sortTable(3, 'vitals-table')" class="sortable">
+                            Temp / Resp <span class="sort-indicator">↕</span>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Date 1</td>
+                        <td>Weight 1 / BMI 1</td>
+                        <td>BP 1 / Pulse 1</td>
+                        <td>Temp 1 / Resp 1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Export Controls -->
+        <div class="export-controls">
+            <button type="button" onclick="exportTableToCSV('vitals-table', 'vitals_2013.csv')">
+                Export Vitals (CSV)
+            </button>
+            <button type="button" onclick="exportTableToJSON('vitals-table', 'vitals_2013.json')">
+                Export Vitals (JSON)
+            </button>
+        </div>
+
+        <a href="#top" class="nav-top-link">↑ Return to Navigation</a>
+    </div>
+</section>
+
+<!-- 7. Medications -->
+<section id="medications">
+    <div class="sec-header" onclick="toggleAccordion('medications')">
+        <h3>Medications</h3>
+        <span class="expand-indicator">+</span>
+    </div>
+
+    <div class="sec-content">
+
+        <div class="table-container">
+            <table id="medications-table">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable(0, 'medications-table')" class="sortable">
+                            Medication Name <span class="sort-indicator">↕</span>
+                        </th>
+                        <th onclick="sortTable(1, 'medications-table')" class="sortable">
+                            Instructions / Indication <span class="sort-indicator">↕</span>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Med 1</td>
+                        <td>Instructions 1 / Indication 1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Export Controls -->
+        <div class="export-controls">
+            <button type="button" onclick="exportTableToCSV('medications-table', 'medications_2013.csv')">
+                Export Medications (CSV)
+            </button>
+            <button type="button" onclick="exportTableToJSON('medications-table', 'medications_2013.json')">
+                Export Medications (JSON)
+            </button>
+        </div>
+
+        <a href="#top" class="nav-top-link">↑ Return to Navigation</a>
+    </div>
+</section>
+
+<!-- 8. Laboratory Results -->
+<section id="results">
+    <div class="sec-header" onclick="toggleAccordion('results')">
+        <h3>Laboratory Results</h3>
+        <span class="expand-indicator">+</span>
+    </div>
+
+    <div class="sec-content">
+
+        <div class="table-container">
+            <table id="results-table">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable(0, 'results-table')" class="sortable">
+                            Date <span class="sort-indicator">↕</span>
+                        </th>
+                        <th onclick="sortTable(1, 'results-table')" class="sortable">
+                            Test <span class="sort-indicator">↕</span>
+                        </th>
+                        <th onclick="sortTable(2, 'results-table')" class="sortable">
+                            Result <span class="sort-indicator">↕</span>
+                        </th>
+                        <th onclick="sortTable(3, 'results-table')" class="sortable">
+                            Range / Interpretation <span class="sort-indicator">↕</span>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Date 1</td>
+                        <td>Test 1</td>
+                        <td>Result 1</td>
+                        <td>Range 1 / Interpretation 1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Export Controls -->
+        <div class="export-controls">
+            <button type="button" onclick="exportTableToCSV('results-table', 'labs_2013.csv')">
+                Export Labs (CSV)
+            </button>
+            <button type="button" onclick="exportTableToJSON('results-table', 'labs_2013.json')">
+                Export Labs (JSON)
+            </button>
+        </div>
+
+        <a href="#top" class="nav-top-link">↑ Return to Navigation</a>
+    </div>
+</section>
+
+<!-- 9. Past Appointments -->
+<section id="past-appts">
+    <div class="sec-header" onclick="toggleAccordion('past-appts')">
+        <h3>Past Appointments</h3>
+        <span class="expand-indicator">+</span>
+    </div>
+
+    <div class="sec-content">
+
+        <div class="table-container">
+            <table id="past-appts-table">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable(0, 'past-appts-table')" class="sortable">
+                            Date <span class="sort-indicator">↕</span>
+                        </th>
+                        <th onclick="sortTable(1, 'past-appts-table')" class="sortable">
+                            Appointment Type <span class="sort-indicator">↕</span>
+                        </th>
+                        <th onclick="sortTable(2, 'past-appts-table')" class="sortable">
+                            Status <span class="sort-indicator">↕</span>
+                        </th>
+                        <th onclick="sortTable(3, 'past-appts-table')" class="sortable">
+                            Provider <span class="sort-indicator">↕</span>
+                        </th>
+                        <th onclick="sortTable(4, 'past-appts-table')" class="sortable">
+                            What <span class="sort-indicator">↕</span>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td data-sort="2013-12-31">Dec 31, 2013</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>No records were available in the VA Bluebutton download for this year.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Export Controls -->
+        <div class="export-controls">
+            <button type="button" onclick="exportTableToCSV('past-appts-table', 'past_appointments_2013.csv')">
+                Export Past Appointments (CSV)
+            </button>
+            <button type="button" onclick="exportTableToJSON('past-appts-table', 'past_appointments_2013.json')">
+                Export Past Appointments (JSON)
+            </button>
+        </div>
+
+        <a href="#top" class="nav-top-link">↑ Return to Navigation</a>
+    </div>
+</section>
+
+<!-- 10. Upcoming Appointments -->
+<section id="upcoming-appointments">
+    <div class="sec-header" onclick="toggleAccordion('upcoming-appointments')">
+        <h3>Upcoming Appointments</h3>
+        <span class="expand-indicator">+</span>
+    </div>
+
+    <div class="sec-content">
+
+        <div class="table-container">
+            <table id="upcoming-appointments-table">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable(0, 'upcoming-appointments-table')" class="sortable">
+                            Date <span class="sort-indicator">↕</span>
+                        </th>
+                        <th onclick="sortTable(1, 'upcoming-appointments-table')" class="sortable">
+                            Appointment Type <span class="sort-indicator">↕</span>
+                        </th>
+                        <th onclick="sortTable(2, 'upcoming-appointments-table')" class="sortable">
+                            Status <span class="sort-indicator">↕</span>
+                        </th>
+                        <th onclick="sortTable(3, 'upcoming-appointments-table')" class="sortable">
+                            Provider <span class="sort-indicator">↕</span>
+                        </th>
+                        <th onclick="sortTable(4, 'upcoming-appointments-table')" class="sortable">
+                            What <span class="sort-indicator">↕</span>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td data-sort="2013-12-31">Dec 31, 2013</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>No records were available in the VA Bluebutton download for this year.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Export Controls -->
+        <div class="export-controls">
+            <button type="button" onclick="exportTableToCSV('upcoming-appointments-table', 'upcoming_appointments_2013.csv')">
+                Export Upcoming Appointments (CSV)
+            </button>
+            <button type="button" onclick="exportTableToJSON('upcoming-appointments-table', 'upcoming_appointments_2013.json')">
+                Export Upcoming Appointments (JSON)
+            </button>
+        </div>
+
+        <a href="#top" class="nav-top-link">↑ Return to Navigation</a>
+    </div>
+</section>
+
+<!-- 11. Secure Messaging -->
+<section id="secure-messaging">
+    <div class="sec-header" onclick="toggleAccordion('secure-messaging')">
+        <h3>Secure Messaging</h3>
+        <span class="expand-indicator">+</span>
+    </div>
+
+    <div class="sec-content">
+
+        <!-- Local Controls -->
+        <div class="local-controls">
+            <button type="button" onclick="expandMessages()">Expand All Messages</button>
+            <button type="button" onclick="collapseMessages()">Collapse All Messages</button>
+        </div>
+
+        <div class="table-container">
+            <table id="secure-messaging-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Subject</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-sort="2013-05-02">05/02/2013</td>
+                        <td>Provider A</td>
+                        <td>You</td>
+                        <td>Follow-up</td>
+                        <td>
+                            <button class="toggle-btn" onclick="toggleNoteText(this)">Show</button>
+                            <div class="msg-body" style="display:none;">
+                                Example secure message text goes here.
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="export-controls">
+            <button type="button" onclick="exportTableToCSV('secure-messaging-table', 'secure_messages_2013.csv')">Export Messages (CSV)</button>
+            <button type="button" onclick="exportTableToJSON('secure-messaging-table', 'secure_messages_2013.json')">Export Messages (JSON)</button>
+        </div>
+
+        <a href="#top" class="nav-top-link">↑ Return to Navigation</a>
+    </div>
+</section>
+
+<!-- 12. Care Summaries and Notes -->
+<section id="notes">
+    <div class="sec-header" onclick="toggleAccordion('notes')">
+        <h3>Care Summaries and Notes</h3>
+        <span class="expand-indicator">+</span>
+    </div>
+
+    <div class="sec-content">
+
+        <!-- Local Controls -->
+        <div class="local-controls">
+            <button type="button" onclick="expandNotes()">Expand All Notes</button>
+            <button type="button" onclick="collapseNotes()">Collapse All Notes</button>
+        </div>
+
+        <div class="table-container">
+            <table id="notes-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Provider</th>
+                        <th>Type</th>
+                        <th>Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-sort="2013-04-12">04/12/2013</td>
+                        <td>Dr. Example</td>
+                        <td>Progress Note</td>
+                        <td>
+                            <button class="toggle-btn" onclick="toggleNoteText(this)">Show</button>
+                            <div class="note-body" style="display:none;">
+                                Example note text goes here.
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="export-controls">
+            <button type="button" onclick="exportTableToCSV('notes-table', 'notes_2013.csv')">Export Notes (CSV)</button>
+            <button type="button" onclick="exportTableToJSON('notes-table', 'notes_2013.json')">Export Notes (JSON)</button>
+        </div>
+
+        <a href="#top" class="nav-top-link">↑ Return to Navigation</a>
+    </div>
+</section>
+
+<!-- 13. Social History -->
+<section id="social-history">
+    <div class="sec-header" onclick="toggleAccordion('social-history')">
+        <h3>Social History</h3>
+        <span class="expand-indicator">+</span>
+    </div>
+
+    <div class="sec-content">
+
+        <div class="table-container">
+            <table id="social-history-table">
+                <tbody>
+                    <tr>
+                        <td><strong>Marital Status</strong></td>
+                        <td>Single / Married / Divorced / Other</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Occupation</strong></td>
+                        <td>Title, Company</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tobacco Use</strong></td>
+                        <td>Never / Former / Current; details</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Housing</strong></td>
+                        <td>Stable / Unstable / Homeless; details</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Export Controls -->
+        <div class="export-controls">
+            <button type="button" onclick="exportTableToCSV('social-history-table', 'social_history_2013.csv')">
+                Export Social History (CSV)
+            </button>
+            <button type="button" onclick="exportTableToJSON('social-history-table', 'social_history_2013.json')">
+                Export Social History (JSON)
+            </button>
+        </div>
+
+        <a href="#top" class="nav-top-link">↑ Return to Navigation</a>
+    </div>
+</section>
+
+<!-- 14. Account Summary -->
+<section id="account-summary">
+    <div class="sec-header" onclick="toggleAccordion('account-summary')">
+        <h3>Account Summary</h3>
+        <span class="expand-indicator">+</span>
+    </div>
+
+    <div class="sec-content">
+
+        <div class="table-container">
+            <table id="account-summary-table">
+                <tbody>
+                    <tr>
+                        <td><strong>VA Facilities (2013 Audit)</strong></td>
+                        <td>Facility 1, Facility 2, Facility 3</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Service Connections</strong></td>
+                        <td>0% / 10% / 30% / etc.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Account Type</strong></td>
+                        <td>Premium / Basic / MyHealtheVet</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Privacy Redaction</strong></td>
+                        <td>Enabled / Disabled / Partial</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Export Controls -->
+        <div class="export-controls">
+            <button type="button" onclick="exportTableToCSV('account-summary-table', 'account_summary_2013.csv')">
+                Export Account Summary (CSV)
+            </button>
+            <button type="button" onclick="exportTableToJSON('account-summary-table', 'account_summary_2013.json')">
+                Export Account Summary (JSON)
+            </button>
+        </div>
+
+        <a href="#top" class="nav-top-link">↑ Return to Navigation</a>
+    </div>
+</section>
+
+<script>
+/* ------------------------------
+   Accordion Toggle
+------------------------------ */
+function toggleAccordion(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (!section) return;
+
+    const content = section.querySelector('.sec-content');
+    const indicator = section.querySelector('.expand-indicator');
+
+    if (!content || !indicator) return;
+
+    if (content.style.display === "block") {
+        content.style.display = "none";
+        indicator.textContent = "+";
+    } else {
+        content.style.display = "block";
+        indicator.textContent = "−";
+    }
+}
+
+function expandAll() {
+    document.querySelectorAll('.sec-content').forEach(sec => {
+        sec.style.display = "block";
+    });
+    document.querySelectorAll('.expand-indicator').forEach(ind => {
+        ind.textContent = "−";
+    });
+}
+
+function collapseAll() {
+    document.querySelectorAll('.sec-content').forEach(sec => {
+        sec.style.display = "none";
+    });
+    document.querySelectorAll('.expand-indicator').forEach(ind => {
+        ind.textContent = "+";
+    });
+}
+
+function expandNotes() {
+    document.querySelectorAll('.note-body').forEach(body => {
+        body.style.display = "block";
+    });
+}
+
+function collapseNotes() {
+    document.querySelectorAll('.note-body').forEach(body => {
+        body.style.display = "none";
+    });
+}
+
+function expandMessages() {
+    document.querySelectorAll('.msg-body').forEach(body => {
+        body.style.display = "block";
+    });
+}
+
+function collapseMessages() {
+    document.querySelectorAll('.msg-body').forEach(body => {
+        body.style.display = "none";
+    });
+}
+
+
+
+
+/* ------------------------------
+   Close all sections
+------------------------------ */
+function closeAllSections() {
+    const sections = document.querySelectorAll('.sec-content');
+    const indicators = document.querySelectorAll('.expand-indicator');
+
+    sections.forEach(sec => sec.style.display = "none");
+    indicators.forEach(ind => ind.textContent = "+");
+}
+
+/* ------------------------------
+   Highlight active nav button
+------------------------------ */
+function highlightNav(btn) {
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-nav'));
+    if (btn) btn.classList.add('active-nav');
+}
+
+/* ------------------------------
+   Open a section, close others, smooth scroll
+------------------------------ */
+function openAndScroll(sectionId, btn) {
+    closeAllSections();
+    highlightNav(btn);
+
+    const section = document.getElementById(sectionId);
+    if (!section) return;
+
+    const content = section.querySelector('.sec-content');
+    const indicator = section.querySelector('.expand-indicator');
+
+    if (content) content.style.display = "block";
+    if (indicator) indicator.textContent = "−";
+
+    section.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+/* ------------------------------
+   Table Sorting
+------------------------------ */
+function sortTable(columnIndex, tableId) {
+    const table = document.getElementById(tableId);
+    if (!table) return;
+
+    const tbody = table.querySelector("tbody");
+    const rows = Array.from(tbody.querySelectorAll("tr"));
+
+    const isAscending = table.getAttribute("data-sort-dir") !== "asc";
+    table.setAttribute("data-sort-dir", isAscending ? "asc" : "desc");
+
+    rows.sort((a, b) => {
+        const aText = a.children[columnIndex].innerText.trim();
+        const bText = b.children[columnIndex].innerText.trim();
+
+        const aNum = parseFloat(aText.replace(/[^\d.-]/g, ""));
+        const bNum = parseFloat(bText.replace(/[^\d.-]/g, ""));
+        const bothNumeric = !isNaN(aNum) && !isNaN(bNum);
+
+        if (bothNumeric) {
+            return isAscending ? aNum - bNum : bNum - aNum;
+        }
+
+        const aSort = a.children[columnIndex].getAttribute("data-sort");
+        const bSort = b.children[columnIndex].getAttribute("data-sort");
+        if (aSort && bSort) {
+            return isAscending ? aSort.localeCompare(bSort) : bSort.localeCompare(aSort);
+        }
+
+        return isAscending ? aText.localeCompare(bText) : bText.localeCompare(aText);
+    });
+
+    rows.forEach(row => tbody.appendChild(row));
+}
+
+/* ------------------------------
+   Note / Message Text Toggle
+------------------------------ */
+function toggleNoteText(button) {
+    const container = button.nextElementSibling;
+    if (!container) return;
+
+    if (container.style.display === "none" || container.style.display === "") {
+        container.style.display = "block";
+        button.textContent = "Hide";
+    } else {
+        container.style.display = "none";
+        button.textContent = "Show";
+    }
+}
+
+/* ------------------------------
+   Export Table to CSV
+------------------------------ */
+function exportTableToCSV(tableId, filename) {
+    const table = document.getElementById(tableId);
+    if (!table) return;
+
+    const rows = [];
+    const headerCells = table.querySelectorAll('thead tr th');
+    const headers = Array.from(headerCells).map(th => th.innerText.trim());
+    rows.push(headers.join(','));
+
+    const bodyRows = table.querySelectorAll('tbody tr');
+    bodyRows.forEach(tr => {
+        const cells = Array.from(tr.querySelectorAll('td')).map(td => {
+            let text = td.innerText.replace(/\r?\n|\r/g, ' ').trim();
+            if (text.includes('"')) text = text.replace(/"/g, '""');
+            if (text.includes(',') || text.includes('"')) text = `"${text}"`;
+            return text;
+        });
+        rows.push(cells.join(','));
+    });
+
+    const csvContent = rows.join('\r\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+
+    link.href = url;
+    link.download = filename || (tableId + '.csv');
+    link.style.display = 'none';
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+}
+
+/* ------------------------------
+   Export Table to JSON
+------------------------------ */
+function exportTableToJSON(tableId, filename) {
+    const table = document.getElementById(tableId);
+    if (!table) return;
+
+    const headerCells = table.querySelectorAll('thead tr th');
+    const headers = Array.from(headerCells).map(th =>
+        th.innerText.trim()
+            .toLowerCase()
+            .replace(/\s+/g, '_')
+            .replace(/[^\w_]/g, '')
+    );
+
+    const bodyRows = table.querySelectorAll('tbody tr');
+    const data = [];
+
+    bodyRows.forEach(tr => {
+        const cells = Array.from(tr.querySelectorAll('td'));
+        const obj = {};
+
+        cells.forEach((td, index) => {
+            const key = headers[index] || `col_${index}`;
+            const text = td.innerText.replace(/\r?\n|\r/g, ' ').trim();
+            obj[key] = text;
+        });
+
+        data.push(obj);
+    });
+
+    const jsonContent = JSON.stringify(data, null, 2);
+    const blob = new Blob([jsonContent], { type: 'application/json;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+
+    link.href = url;
+    link.download = filename || (tableId + '.json');
+    link.style.display = 'none';
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+}
+</script>
+
+</body>
+</html>
