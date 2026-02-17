@@ -151,6 +151,4 @@ NotebookLM will index these files and provide semantic reasoning across the proj
 ---
 
 ## License
-
 This project is maintained as an authoritative internal template.
-
