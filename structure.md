@@ -4,27 +4,38 @@
 This document defines the authoritative structural map of `master-template.html`.  
 It reflects the exact ordering, identifiers, semantic anchors, table schemas, behavioral logic, and UI patterns present in the canonical single‑file HTML template used for VA Blue Button reconstruction and multi‑year comparison.
 
-All structures listed here are schema‑locked.  
-Any modification requires a MAJOR version bump and must be documented in `changelog.md`.
+All structures listed here are **schema‑locked**.  
+Any modification requires a **MAJOR** version bump and must be documented in `changelog.md`.
+
+This file is a **source‑of‑truth reference** for:
+
+- reconstruction engines  
+- NotebookLM ingestion  
+- comparison engines  
+- export layers  
+- audit workflows  
 
 ---
 
 # 1. Document Metadata Block  
+
 The file begins with a top‑level HTML comment containing:
 
 - Project name  
 - Template purpose  
-- Version (1.0.0)  
+- Version (semantic versioning)  
 - Status (Authoritative Source of Truth)  
 - Repository URL  
 - Last Updated date  
 - Editing rules (dev‑only edits, PR workflow, schema‑lock rules, no external dependencies)
 
-This metadata block is a semantic anchor and must remain intact.
+This metadata block is a **semantic anchor** and must remain intact.  
+NotebookLM must ingest this block **line‑by‑line**.
 
 ---
 
 # 2. Document Root  
+
 The document root consists of:
 
 - `<!DOCTYPE html>`  
@@ -32,15 +43,17 @@ The document root consists of:
 - `<head>`  
 - `<body>`
 
-These elements define the global document structure.
+These elements define the global document structure and must not be altered.
 
 ---
 
 # 3. Global Styles (Inline CSS)  
-All CSS is embedded within `<style>` inside `<head>`.
+
+All CSS is embedded within `<style>` inside `<head>`.  
+No external CSS is permitted.
 
 ### 3.1 Layout & Typography  
-- Body styling (font, width, background, padding)  
+- Body styling  
 - Header alignment (`.center`)  
 - Section styling (`section`, `.sec-header`, `.sec-content`)  
 
@@ -50,7 +63,7 @@ All CSS is embedded within `<style>` inside `<head>`.
 - `.nav-top-link`  
 
 ### 3.3 Tables  
-- Unified table styling (`table`, `thead`, `th`, `td`)  
+- Unified table styling  
 - Sticky headers  
 - Alternating row backgrounds  
 - `.table-container` scroll behavior  
@@ -60,9 +73,9 @@ All CSS is embedded within `<style>` inside `<head>`.
 - `.sort-indicator`  
 
 ### 3.5 Expandable Notes / Messages  
-- `.note-text-container`  
-- `.note-row.expanded`  
+- `.note-body`  
 - `.msg-body`  
+- `.toggle-btn`  
 
 ### 3.6 Print/PDF Optimizations  
 - Hide navigation and controls  
@@ -74,6 +87,7 @@ All CSS must remain inline and unminified.
 ---
 
 # 4. Header Section  
+
 Located at the top of `<body>`.
 
 Contains:
@@ -84,12 +98,15 @@ Contains:
 - `.patient-bar` patient identity summary  
 - `id="top"` navigation anchor  
 
+This header is schema‑locked.
+
 ---
 
 # 5. Navigation Panel  
+
 A list of `.nav-btn` elements that call `openAndScroll()`.
 
-Canonical navigation order:
+Canonical navigation order (schema‑locked):
 
 1. patient-info  
 2. military  
@@ -106,34 +123,49 @@ Canonical navigation order:
 13. social-history  
 14. account-summary  
 
-This ordering defines the authoritative section sequence.
+NotebookLM must treat this ordering as **authoritative**.
 
 ---
 
 # 6. Global Controls  
+
 A `.global-controls` block containing:
 
 - Expand All  
 - Collapse All  
 
-Controls all accordion sections simultaneously.
+These control **only section‑level** expansion, not internal message/note bodies.
 
 ---
 
 # 7. Section Structure (Schema‑Locked Pattern)
 
-Every section follows this structure:
+Every section follows this exact structure:
 
-- A semantic comment: `<!-- X. Section Name -->`  
-- `<section id="SECTION-ID">`  
-- `.sec-header` with title and expand indicator  
-- `.sec-content` containing:  
-  - `.table-container`  
-  - `<table id="TABLE-ID">`  
-  - `.export-controls`  
-  - `.nav-top-link`  
+```
+<!-- X. Section Name -->
+<section id="SECTION-ID">
+    <div class="sec-header" onclick="toggleAccordion('SECTION-ID')">
+        <h3>Section Title</h3>
+        <span class="expand-indicator">+</span>
+    </div>
 
-These elements are schema‑locked.
+    <div class="sec-content">
+        <div class="table-container">
+            <table id="TABLE-ID">...</table>
+        </div>
+
+        <div class="export-controls">
+            <button>Export CSV</button>
+            <button>Export JSON</button>
+        </div>
+
+        <a href="#top" class="nav-top-link">↑ Return to Navigation</a>
+    </div>
+</section>
+```
+
+This pattern is **locked** and must not be altered.
 
 ---
 
@@ -225,6 +257,7 @@ Used in:
 ---
 
 # 10. Export Layer Structure  
+
 Every section includes an `.export-controls` block with:
 
 - `exportTableToCSV(tableId, filename)`  
@@ -271,11 +304,35 @@ Each section is preceded by a numbered comment:
 - …  
 - `<!-- 14. Account Summary -->`  
 
-These comments are semantic anchors used by NotebookLM, MSCP, and comparison engines.
+These comments are **semantic anchors** used by:
+
+- NotebookLM  
+- comparison engines  
+- export layers  
+- audit workflows  
+
+They must remain intact.
 
 ---
 
-# 13. Provenance & Privacy Notes  
+# 13. NotebookLM Structural Requirements
+
+NotebookLM must:
+
+- Ingest this file **line‑by‑line**  
+- Treat all IDs, classes, and section numbers as locked  
+- Use this structure to validate reconstruction  
+- Refuse to generate output if structure is incomplete  
+- Map VA text file content to these sections exactly  
+- Perform section‑count verification before output  
+- Declare how many output chunks will be required  
+
+NotebookLM must not infer or invent structure.
+
+---
+
+# 14. Provenance & Privacy Notes  
+
 - Privacy Guard notice in Military Service section  
 - Year‑scoped export filenames  
 - No external dependencies  
@@ -283,20 +340,8 @@ These comments are semantic anchors used by NotebookLM, MSCP, and comparison eng
 
 ---
 
-# 14. Future Structural Extensions (Scaffold)
-
-### 14.1 Additional Clinical Sections  
-Placeholder for future VA Blue Button categories.
-
-### 14.2 Comparison Metadata Blocks  
-Placeholder for multi‑year diff metadata.
-
-### 14.3 Export Layer Mapping  
-Placeholder for CSV/JSON schema mapping.
-
----
-
 # 15. Authority of This Document  
+
 `structure.md` is the authoritative structural reference for the BB Project master template.  
 Any structural change must be:
 
