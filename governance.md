@@ -1,4 +1,5 @@
 # Repository Governance — BB Project Master Template  
+
 **Author:** Zack AhSam‑Kreiter  
 
 This document defines the authoritative governance model for the BB Project repository.  
@@ -9,6 +10,7 @@ It establishes the rules, workflows, protections, and expectations required to m
 # 1. Branch Model  
 
 ## 1.1 Protected Branch: `main`  
+
 The `main` branch represents the authoritative, production‑ready state of the BB Project.  
 It is fully protected and enforces the following rules:
 
@@ -23,6 +25,7 @@ It is fully protected and enforces the following rules:
 Only reviewed, approved, and validated changes may enter `main`.
 
 ## 1.2 Working Branch: `dev`  
+
 The `dev` branch is the primary working branch for all development activity.
 
 - Direct commits are allowed  
@@ -35,6 +38,7 @@ The `dev` branch is the primary working branch for all development activity.
 # 2. Workflow Requirements  
 
 ## 2.1 Development Flow  
+
 All work follows this sequence:
 
 1. Create or update work on the `dev` branch  
@@ -47,6 +51,7 @@ All work follows this sequence:
 This ensures a clean, linear, auditable history.
 
 ## 2.2 Commit Standards  
+
 All commits must:
 
 - Be signed  
@@ -55,6 +60,7 @@ All commits must:
 - Avoid mixing unrelated modifications  
 
 ## 2.3 Pull Request Standards  
+
 Every PR must:
 
 - Include a clear description of the change  
@@ -68,6 +74,7 @@ Every PR must:
 # 3. Schema‑Locked HTML Governance  
 
 ## 3.1 Structural Integrity  
+
 The `master-template.html` file is **schema‑locked**.  
 This means:
 
@@ -78,6 +85,7 @@ This means:
 - No minification is allowed  
 
 ## 3.2 Comparison Engine Compatibility  
+
 All identifiers, sections, and structural markers must remain consistent to support:
 
 - multi‑year comparison  
@@ -93,6 +101,7 @@ Any structural change requires explicit documentation in the changelog.
 # 4. Documentation Governance  
 
 ## 4.1 Required Files  
+
 The repository must include:
 
 - `README.md` — project overview and governance summary  
@@ -102,6 +111,7 @@ The repository must include:
 - `structure.md` (future) — semantic map of the HTML template  
 
 ## 4.2 Documentation Rules  
+
 - All documentation must be clear, explicit, and audit‑friendly  
 - No undocumented structural changes  
 - All version changes must be recorded in `changelog.md`  
@@ -112,6 +122,7 @@ The repository must include:
 # 5. NotebookLM Governance  
 
 ## 5.1 Ingestion Expectations  
+
 NotebookLM is expected to ingest:
 
 - `README.md`  
@@ -121,6 +132,7 @@ NotebookLM is expected to ingest:
 - `structure.md` (when added)  
 
 ## 5.2 Semantic Stability  
+
 To ensure consistent reasoning:
 
 - Maintain stable section headers  
@@ -130,6 +142,7 @@ To ensure consistent reasoning:
 - Maintain consistent indentation  
 
 ## 5.3 Source‑of‑Truth Principle  
+
 NotebookLM is a **consumer**, not an authority.  
 The repository remains the single source of truth.
 
@@ -138,6 +151,7 @@ The repository remains the single source of truth.
 # 6. Versioning Governance  
 
 ## 6.1 Semantic Versioning  
+
 The project follows:
 
 - **MAJOR** — structural or schema changes  
@@ -145,6 +159,7 @@ The project follows:
 - **PATCH** — documentation or formatting fixes  
 
 ## 6.2 Version Change Requirements  
+
 Any version bump must:
 
 - Be documented in `changelog.md`  
@@ -174,17 +189,21 @@ No bypassing governance.
 # 8. Future Governance Extensions (Scaffold)
 
 ### 8.1 Comparison Engine Rules  
+
 _Placeholder for future multi‑year comparison logic._
 
 ### 8.2 Export Layer Rules  
+
 _Placeholder for CSV/JSON export governance._
 
 ### 8.3 MSCP Integration Rules  
+
 _Placeholder for cross‑system ingestion and validation._
 
 ---
 
 # 9. Authority of This Document  
+
 This governance file is the **authoritative constitution** of the BB Project repository.  
 All contributors, tools, and automated systems must adhere to its rules.  
 Any changes to this document require a **MAJOR** version bump and explicit approval.
