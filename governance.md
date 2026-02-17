@@ -1,9 +1,10 @@
 # Repository Governance — BB Project Master Template  
-
 **Author:** Zack AhSam‑Kreiter  
 
 This document defines the authoritative governance model for the BB Project repository.  
 It establishes the rules, workflows, protections, and expectations required to maintain a zero‑drift, audit‑friendly, schema‑locked system.
+
+All governance rules in this document are **authoritative** and must be followed by all contributors, tools, and automated systems, including NotebookLM.
 
 ---
 
@@ -108,7 +109,7 @@ The repository must include:
 - `master-template.html` — authoritative schema‑locked template  
 - `changelog.md` — temporal anchors for version evolution  
 - `governance.md` — this document  
-- `structure.md` (future) — semantic map of the HTML template  
+- `structure.md` — semantic map of the HTML template  
 
 ## 4.2 Documentation Rules  
 
@@ -119,32 +120,83 @@ The repository must include:
 
 ---
 
-# 5. NotebookLM Governance  
+# 5. NotebookLM Governance (Authoritative)
+
+NotebookLM is a **consumer**, not an authority.  
+It must follow the rules below when interacting with this repository.
 
 ## 5.1 Ingestion Expectations  
 
-NotebookLM is expected to ingest:
+NotebookLM must ingest:
 
 - `README.md`  
 - `master-template.html`  
 - `changelog.md`  
 - `governance.md`  
-- `structure.md` (when added)  
+- `structure.md`  
 
-## 5.2 Semantic Stability  
+NotebookLM must ingest all files **line‑by‑line** and treat them as canonical.
 
-To ensure consistent reasoning:
+## 5.2 Semantic Stability Requirements  
+
+To ensure consistent reasoning, NotebookLM must:
 
 - Maintain stable section headers  
 - Preserve schema‑locked identifiers  
 - Keep HTML readable and unminified  
 - Use meaningful comments  
 - Maintain consistent indentation  
+- Treat all IDs, classes, and section numbers as locked  
 
-## 5.3 Source‑of‑Truth Principle  
+## 5.3 Reconstruction & Validation Rules  
 
-NotebookLM is a **consumer**, not an authority.  
-The repository remains the single source of truth.
+NotebookLM must:
+
+- Follow the section order defined in `structure.md`  
+- Use the exact HTML structure from `master-template.html`  
+- Validate all fields against the schema  
+- Report missing or extra fields  
+- Refuse to proceed if the schema cannot be satisfied  
+- Never infer or invent structure  
+
+## 5.4 VA Text File Ingestion Rules  
+
+NotebookLM must:
+
+- Ingest VA text files line‑by‑line  
+- Map each line to the correct section  
+- Perform section‑count verification  
+- Detect missing or truncated content  
+- Refuse to generate output until ingestion is complete  
+
+## 5.5 Output Planning Rules  
+
+Before generating any HTML, NotebookLM must:
+
+1. Count all sections  
+2. Estimate token usage  
+3. Determine how many output chunks are required  
+4. Present the plan to the user  
+5. Wait for explicit approval  
+
+NotebookLM must not generate HTML prematurely.
+
+## 5.6 Customer Confirmation Gate  
+
+NotebookLM must:
+
+- Generate only Section 1 first  
+- Wait for user confirmation  
+- Only then proceed with the remaining sections  
+
+## 5.7 No Silent Truncation  
+
+NotebookLM must:
+
+- Split output into multiple chunks if needed  
+- Guarantee no content loss  
+- Report chunk boundaries  
+- Never silently truncate output  
 
 ---
 
@@ -189,15 +241,12 @@ No bypassing governance.
 # 8. Future Governance Extensions (Scaffold)
 
 ### 8.1 Comparison Engine Rules  
-
 _Placeholder for future multi‑year comparison logic._
 
 ### 8.2 Export Layer Rules  
-
 _Placeholder for CSV/JSON export governance._
 
 ### 8.3 MSCP Integration Rules  
-
 _Placeholder for cross‑system ingestion and validation._
 
 ---
@@ -207,4 +256,3 @@ _Placeholder for cross‑system ingestion and validation._
 This governance file is the **authoritative constitution** of the BB Project repository.  
 All contributors, tools, and automated systems must adhere to its rules.  
 Any changes to this document require a **MAJOR** version bump and explicit approval.
-
