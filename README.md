@@ -1,4 +1,5 @@
 # BB Project — VA Blue Button Reconstruction & Comparison Engine  
+
 Zack AhSam‑Kreiter
 
 The BB Project is a standalone, schema‑locked system for reconstructing, validating, and comparing VA Blue Button medical records across multiple years. It produces:
@@ -37,7 +38,7 @@ This repository is intentionally minimal to preserve clarity and prevent schema 
 
 ---
 
-# 2. Files
+## 2. Files
 
 This repository contains the authoritative files required for deterministic reconstruction, schema‑locked governance, and NotebookLM ingestion.  
 All links below point to the **raw** versions for maximum stability and machine‑readability.
@@ -45,24 +46,29 @@ All links below point to the **raw** versions for maximum stability and machine�
 ---
 
 ### `master-template.html`  
+
 Authoritative single‑file HTML template (schema‑locked).  
-https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/master-template.html
+<https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/master-template.html>
 
 ### `README.md`  
+
 Project overview, governance rules, NotebookLM operating standards.  
-https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/README.md
+<https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/README.md>
 
 ### `changelog.md`  
+
 Temporal anchors for version evolution.  
-https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/changelog.md
+<https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/changelog.md>
 
 ### `governance.md`  
+
 Repository governance, workflow rules, schema‑lock requirements.  
-https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/governance.md
+<https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/governance.md>
 
 ### `structure.md`  
+
 Semantic map of the HTML template.  
-https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/structure.md
+<https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/structure.md>
 
 ---
 
@@ -71,22 +77,24 @@ https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/structu
 Supporting documents for NotebookLM, contributors, and audit workflows.
 
 ### NotebookLM Pre‑Flight Checklist  
-https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/docs/notebooklm-preflight-checklist.md
+
+<https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/docs/notebooklm-preflight-checklist.md>
 
 ### NotebookLM Prompt Template  
-https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/docs/notebooklm-prompt-template.md
+
+<https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/docs/notebooklm-prompt-template.md>
 
 ### Contributor Guide  
-https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/docs/contributor-guide.md
+
+<https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/docs/contributor-guide.md>
 
 ### master-template.html Audit Checklist  
-https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/docs/master-template-audit-checklist.md
 
-
+<https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/docs/master-template-audit-checklist.md>
 
 ---
 
-# 3. Authoritative Section Order (14 Sections)
+## 3. Authoritative Section Order (14 Sections)
 
 All documents must follow this exact order:
 
@@ -109,7 +117,7 @@ Section numbers, IDs, and names are **locked**.
 
 ---
 
-# 4. HTML Structure Requirements
+## 4. HTML Structure Requirements
 
 Each section must include:
 
@@ -125,7 +133,7 @@ Global Expand All must **not** expand internal text bodies.
 
 ---
 
-# 5. Export Layer Requirements
+## 5. Export Layer Requirements
 
 Every table must support:
 
@@ -141,7 +149,7 @@ Exports must:
 
 ---
 
-# 6. Multi‑Year Comparison Engine
+## 6. Multi‑Year Comparison Engine
 
 The comparison engine must:
 
@@ -154,7 +162,7 @@ This engine is schema‑locked and deterministic.
 
 ---
 
-# 7. Zero‑Drift Architecture
+## 7. Zero‑Drift Architecture
 
 The BB Project enforces:
 
@@ -169,15 +177,17 @@ This ensures long‑term auditability.
 
 ---
 
-# 8. Branching Model
+## 8. Branching Model
 
 ### `main`
+
 - Protected  
 - Production‑ready  
 - Only updated via pull request  
 - Must pass review and validation  
 
 ### `dev`
+
 - Working branch  
 - All edits occur here  
 - Changes must be documented in `changelog.md` before merging  
@@ -186,7 +196,7 @@ This two‑branch model ensures stability, auditability, and zero drift.
 
 ---
 
-# 9. Editing Rules
+## 9. Editing Rules
 
 To maintain integrity and auditability:
 
@@ -201,7 +211,7 @@ To maintain integrity and auditability:
 
 ---
 
-# 10. Versioning
+## 10. Versioning
 
 This project uses **semantic versioning**:
 
@@ -213,11 +223,12 @@ All version changes must be recorded in `changelog.md`.
 
 ---
 
-# 11. NotebookLM Operating Rules (Authoritative)
+## 11. NotebookLM Operating Rules (Authoritative)
 
 NotebookLM must follow these rules when reading, interpreting, or generating content for the BB Project.
 
 ## 11.1 Source of Truth
+
 NotebookLM must treat the following files as the **only authoritative sources**:
 
 - `README.md`  
@@ -229,6 +240,7 @@ NotebookLM must treat the following files as the **only authoritative sources**:
 NotebookLM must not infer or invent structure not explicitly defined.
 
 ## 11.2 Ingestion Requirements
+
 NotebookLM must:
 
 - Fully ingest every linked raw file  
@@ -239,6 +251,7 @@ NotebookLM must:
 NotebookLM must not summarize these files — it must use them as construction blueprints.
 
 ## 11.3 Reconstruction Mandate
+
 NotebookLM must:
 
 1. Follow the section order in `structure.md`  
@@ -251,6 +264,7 @@ NotebookLM must:
 NotebookLM must behave like a schema validator.
 
 ## 11.4 Completeness Audit Rules
+
 NotebookLM must:
 
 - Perform a line‑by‑line comparison against the schema  
@@ -260,6 +274,7 @@ NotebookLM must:
 - Report discrepancies exhaustively  
 
 ## 11.5 No External Knowledge
+
 NotebookLM must not:
 
 - Pull in external medical knowledge  
@@ -267,6 +282,7 @@ NotebookLM must not:
 - Add fields not defined in the schema  
 
 ## 11.6 Behavior When Uncertain
+
 If ambiguous, NotebookLM must:
 
 - Refer to `structure.md`  
@@ -277,6 +293,7 @@ If ambiguous, NotebookLM must:
 NotebookLM must not guess.
 
 ## 11.7 Output Requirements
+
 All output must:
 
 - Follow the exact section numbering  
@@ -289,9 +306,10 @@ NotebookLM must behave like a deterministic reconstruction engine.
 
 ---
 
-# 12. VA Text File Ingestion & Audit Rules (Authoritative)
+## 12. VA Text File Ingestion & Audit Rules (Authoritative)
 
 ## 12.1 Full Line‑By‑Line Ingestion
+
 NotebookLM must:
 
 - Read every line of every VA text file  
@@ -300,6 +318,7 @@ NotebookLM must:
 - Treat VA text files as mandatory input  
 
 ## 12.2 Schema‑Aligned Reconstruction
+
 NotebookLM must:
 
 - Map each line to the correct section  
@@ -308,6 +327,7 @@ NotebookLM must:
 - Refuse to proceed if the schema cannot be satisfied  
 
 ## 12.3 Section Count Verification (Token‑Limit Protection)
+
 Before generating output, NotebookLM must:
 
 1. Count the number of sections in the VA text files  
@@ -318,6 +338,7 @@ Before generating output, NotebookLM must:
 If anything is missing, NotebookLM must halt and report.
 
 ## 12.4 Token‑Limit Safeguard
+
 NotebookLM must:
 
 - Estimate token usage  
@@ -326,6 +347,7 @@ NotebookLM must:
 - Ensure no content is lost  
 
 ## 12.5 Customer Confirmation Gate
+
 Before delivering the full HTML document, NotebookLM must:
 
 1. Generate only the first section  
@@ -334,6 +356,7 @@ Before delivering the full HTML document, NotebookLM must:
 4. Only then proceed  
 
 ## 12.6 No Output Until Audit Completes
+
 NotebookLM must not generate final HTML until:
 
 - All text files are ingested  
@@ -344,9 +367,10 @@ NotebookLM must not generate final HTML until:
 
 ---
 
-# 13. Output Planning & Section Count Rules (Authoritative)
+## 13. Output Planning & Section Count Rules (Authoritative)
 
 ## 13.1 Pre‑Flight Section Count Requirement
+
 NotebookLM must:
 
 1. Ingest all VA text files  
@@ -363,6 +387,7 @@ NotebookLM must explicitly state:
 - Planned boundaries of each chunk  
 
 ## 13.2 Mandatory Output Plan Disclosure
+
 NotebookLM must present:
 
 - “I will need X output sections.”  
@@ -370,6 +395,7 @@ NotebookLM must present:
 - “Section 2 will contain…”  
 
 ## 13.3 Customer Confirmation Gate
+
 NotebookLM must:
 
 - Wait for approval of the plan  
@@ -377,6 +403,7 @@ NotebookLM must:
 - Only then proceed  
 
 ## 13.4 No Partial or Premature Output
+
 NotebookLM must not:
 
 - Begin generating HTML early  
@@ -384,6 +411,7 @@ NotebookLM must not:
 - Skip the planning step  
 
 ## 13.5 Token‑Limit Protection
+
 NotebookLM must:
 
 - Estimate token usage per chunk  
@@ -395,39 +423,37 @@ NotebookLM must never truncate output.
 
 ---
 
-# 14. NotebookLM Integration (Recommended Sources)
+## 14. NotebookLM Integration (Recommended Sources)
 
 Add the following raw links to NotebookLM for deterministic ingestion:
 
 ### Core Repository Files
 
 - README.md  
-  https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/README.md
+  <https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/README.md>
 - changelog.md  
-  https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/changelog.md
+  <https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/changelog.md>
 - governance.md  
-  https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/governance.md
+  <https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/governance.md>
 - structure.md  
-  https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/structure.md
+  <https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/structure.md>
 - master-template.html (raw)  
-  https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/master-template.html
+  <https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/master-template.html>
 
 ### Operational Documentation (in /docs)
 
 - NotebookLM Pre‑Flight Checklist  
-  https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/docs/notebooklm-preflight-checklist.md
+  <https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/docs/notebooklm-preflight-checklist.md>
 - NotebookLM Prompt Template  
-  https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/docs/notebooklm-prompt-template.md
+  <https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/docs/notebooklm-prompt-template.md>
 - Contributor Guide  
-  https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/docs/contributor-guide.md
+  <https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/docs/contributor-guide.md>
 - master-template.html Audit Checklist  
-  https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/docs/master-template-audit-checklist.md
-
-
+  <https://raw.githubusercontent.com/zackunseasoned/bb-master-template/main/docs/master-template-audit-checklist.md>
 
 ---
 
-# 15. Workflow Summary
+## 15. Workflow Summary
 
 - Work in `dev`  
 - Document changes in `changelog.md`  
@@ -437,6 +463,6 @@ Add the following raw links to NotebookLM for deterministic ingestion:
 
 ---
 
-# 16. License
-This project is maintained as an authoritative internal template.
+## 16. License
 
+This project is maintained as an authoritative internal template.
